@@ -23,6 +23,23 @@ namespace WebAPIAndOAuth.Infrastructure
         /// </summary>
         public DbSet<AppRefreshToken> RefreshTokens { get; set; }
         #endregion
+        #region test
+        public DbSet<BillingDetail> BillingDetails { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BankAccount>().Map(m => {
+                m.MapInheritedProperties();
+                m.ToTable("BankAccounts");
+            });
+
+            modelBuilder.Entity<CreditCard>().Map(m => {
+                m.MapInheritedProperties();
+                m.ToTable("CreditCards");
+            });
+            base.OnModelCreating(modelBuilder);
+        }
+        #endregion
     }
 
     class DropCreateDatabaseIfModelChanges : DropCreateDatabaseIfModelChanges<AuthDbContext>

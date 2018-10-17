@@ -142,6 +142,7 @@
     <Compile Include="Infrastructure\Utility.cs" />
     <Compile Include="Models\AppClient.cs" />
     <Compile Include="Models\AppRefreshToken.cs" />
+    <Compile Include="Models\TestModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
