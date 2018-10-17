@@ -36,3 +36,5 @@
 
 注：
 	通过接口2获取的access_token没有权限访问接口4、5、6，因此当前硬编码只有在用refresh_token刷新后得到的access_token才具有admin的角色声明。
+	
+Have been modifed from github.com.
