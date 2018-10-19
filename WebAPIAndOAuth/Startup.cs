@@ -74,7 +74,7 @@ namespace WebAPIAndOAuth
 
             if (!string.IsNullOrEmpty(clientId))
             {
-                AppClient client = await context.OwinContext.Get<AuthDbContext>().Clients
+                AppClient client = await context.OwinContext.Get<AuthDbContext>().Clients.AsNoTracking()
                     .Where(c => c.ClientId == context.ClientId).FirstOrDefaultAsync();
 
                 if (client is null)
