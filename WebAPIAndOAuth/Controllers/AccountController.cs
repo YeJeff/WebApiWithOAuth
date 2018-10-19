@@ -74,7 +74,7 @@ namespace WebAPIAndOAuth.Controllers
 
                 bl = db.BillingDetails.Where(w => w.BillingDetailId == 12).FirstOrDefault();
 
-                return Ok(new { Succeed = result, BD = bl });
+                return Ok(bl);
 
             }
 
