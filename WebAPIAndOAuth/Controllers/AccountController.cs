@@ -3,10 +3,11 @@ using System.Web.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using System.Net.Http;
+using System.Data.Entity;
 using WebAPIAndOAuth.Models;
 using WebAPIAndOAuth.Infrastructure;
-using Microsoft.AspNet.Identity.Owin;
-using System.Data.Entity;
+using System;
+using System.Data.Entity.Core.Objects;
 
 namespace WebAPIAndOAuth.Controllers
 {
@@ -40,40 +41,43 @@ namespace WebAPIAndOAuth.Controllers
 
         public async Task<IHttpActionResult> Get()
         {
-            var db = Request.GetOwinContext().Get<AuthDbContext>();
-            db.Database.Log = (sql) =>
+            using (var db = new AuthDbContext())
             {
+                db.Database.Log = (sql) =>
+                {
 
-                System.Diagnostics.Debug.WriteLine(sql);
-            };
+                    System.Diagnostics.Debug.WriteLine(sql);
+                };
 
-            BankAccount bankAccount = new BankAccount
-            {
-                BankName = "BOC",
-                Number = "9876541230",
-                Owner = "jack",
-                Swift = "OK"
-            };
+                #region Query
+                //db.Configuration.LazyLoadingEnabled = false;
+                //var isLazy = db.Configuration.LazyLoadingEnabled;
 
-            CreditCard creditCard = new CreditCard
-            {
-                CardType = 995,
-                ExpiryMonth = "12",
-                Number = "123123123123",
-                ExpiryYear = "1",
-                Owner = "jack",
-                Note263 = "Yes"
-            };
-            db.BillingDetails.Add(bankAccount);
-            db.BillingDetails.Add(creditCard);
+                //BankAccount bc = db.BankAccounts.FirstOrDefault();
+                ////BillingDetail bl = bc.BillingDetail;
+                //return Ok(new { Succeed = 1, BC = bc });
+                #endregion
 
-            var result = await db.SaveChangesAsync();
-            return Ok(new { Succeed = result, BC = bankAccount, CC = creditCard});
 
-           // var result = await db.BillingDetails.AsNoTracking().Where(b => b.BillingDetailId == 1 || b.BillingDetailId == 2).ToListAsync();
+                BillingDetail bl = new BillingDetail
+                {
+                    BillingDetailId = 1,
+                    Note263 = DateTime.Now.ToLocalTime().ToString(),
+                    Number = "number",
+                    Owner = "dog"
+                };
 
-            
-           // return Json(result);
+
+
+                var originalSetting = db.Configuration.AutoDetectChangesEnabled;
+                db.Configuration.AutoDetectChangesEnabled = false;
+
+                bl = db.BillingDetails.Where(w => w.BillingDetailId == 12).FirstOrDefault();
+
+                return Ok(new { Succeed = result, BD = bl });
+
+            }
+
         }
     }
 }
