@@ -15,7 +15,5 @@ namespace MVCIdentity.Controllers
             //return View();
 
         }
-
-        public 
     }
 }

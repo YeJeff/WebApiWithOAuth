@@ -16,19 +16,16 @@ namespace WebAPIAndOAuth.Models
         public string Note263 { get; set; }
     }
 
-    public class BankAccount
+    public class BankAccount : BillingDetail
     {
-        public int Id{get;set;}
         public string BankName { get; set; }
         public string Swift { get; set; }
-        public int BillingDetailId { get; set; }
-        public virtual BillingDetail BillingDetail { get; set; }
     }
 
-    //public class CreditCard : BillingDetail
-    //{
-    //    public int CardType { get; set; }
-    //    public string ExpiryMonth { get; set; }
-    //    public string ExpiryYear { get; set; }
-    //}
+    public class CreditCard : BillingDetail
+    {
+        public int CardType { get; set; }
+        public string ExpiryMonth { get; set; }
+        public string ExpiryYear { get; set; }
+    }
 }

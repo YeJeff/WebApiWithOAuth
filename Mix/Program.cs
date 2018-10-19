@@ -45,19 +45,8 @@ namespace Mix
             return func(pwd, size);
         }
 
-        private static void TestInWalterlvsDemo(object value)
-        {
-            Console.WriteLine($"value is 1 => {value is 1}");
-            Console.WriteLine($"value == 1 => {(int)value == 1}");
-            Console.WriteLine($"value == 1 => {value == (object)1}");
-        }
-
         static void Main(string[] args)
         {
-            TestInWalterlvsDemo(1);
-
-            Console.ReadLine();
-            return;
 
             Guid gd = Guid.NewGuid();
             Console.WriteLine(gd.ToString());
