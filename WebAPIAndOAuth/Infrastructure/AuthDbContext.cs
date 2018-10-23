@@ -34,7 +34,7 @@ namespace WebAPIAndOAuth.Infrastructure
         protected override void Seed(AuthDbContext context)
         {
             context.Users.Add(new AppUser{ UserName="lj", Email="123@qq.com", PasswordHash= "ADLAITS97fK9o8wWPSuQ7pmZcE2i9Dz2hLyn+T7GmIwxxbA1JAEGTaJT5o5Rn+LreA==" });
-
+            context.Clients.Add(new AppClient {ClientId = "B9684437-B69A-45BF-BDC6-FD6EEC14026A", ClientSecret = "6USxYJQtPaACHycrFKiciUIY51HZKw+cCaL6JusjL0A=", Name = "TestClient", ApplicationType = 1, Active = 1, RefreshTokenLifeTime = 14400, AllowedOrigin = "*" });
             context.SaveChanges();
             base.Seed(context);
         }
