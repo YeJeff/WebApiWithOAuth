@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Formatting;
 
 namespace MVCIdentity.Infrastructure
 {
@@ -18,13 +16,10 @@ namespace MVCIdentity.Infrastructure
         public async static Task<String> HttpClientGet(string url)
         {
             string rspString = string.Empty;
-            
+
             using (HttpClient client = new HttpClient())
             {
                 client.Timeout = new TimeSpan(0, 0, 10);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                 HttpResponseMessage rspMsg = await client.GetAsync(new Uri(url));
                 HttpResponseMessage rspStatus = rspMsg.EnsureSuccessStatusCode();
                 if (rspStatus.StatusCode == HttpStatusCode.OK)
