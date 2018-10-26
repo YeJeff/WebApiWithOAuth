@@ -7,9 +7,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPIAndOAuth.Models
 {
-    public class BillingDetail
+   public class BillingDetail
     {
         public int BillingDetailId { get; set; }
+        public int BankAccountId { get; set; }
         public string Owner { get; set; }
         public string Number { get; set; }
 
@@ -21,8 +22,17 @@ namespace WebAPIAndOAuth.Models
         public int Id{get;set;}
         public string BankName { get; set; }
         public string Swift { get; set; }
-        public int BillingDetailId { get; set; }
-        public virtual BillingDetail BillingDetail { get; set; }
+        public int BankOwnerId { get; set; }
+        public virtual BankOwer BankOwner { get; set; }
+        public virtual List<BillingDetail> BillingDetails { get; set; }
+    }
+
+    public class BankOwer
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName => $"{FirstName} {LastName}";
     }
 
     //public class CreditCard : BillingDetail

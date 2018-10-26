@@ -2,12 +2,15 @@
 using System.Web.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Data.Entity;
 using WebAPIAndOAuth.Models;
 using WebAPIAndOAuth.Infrastructure;
 using System;
 using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
 
 namespace WebAPIAndOAuth.Controllers
 {
@@ -38,46 +41,57 @@ namespace WebAPIAndOAuth.Controllers
             return Ok();
         }
 
-
+        [Route("")]
         public async Task<IHttpActionResult> Get()
         {
             using (var db = new AuthDbContext())
             {
-                db.Database.Log = (sql) =>
-                {
+                //db.Database.Log = (sql) =>
+                //{
 
-                    System.Diagnostics.Debug.WriteLine(sql);
-                };
-
-                #region Query
-                //db.Configuration.LazyLoadingEnabled = false;
-                //var isLazy = db.Configuration.LazyLoadingEnabled;
-
-                //BankAccount bc = db.BankAccounts.FirstOrDefault();
-                ////BillingDetail bl = bc.BillingDetail;
-                //return Ok(new { Succeed = 1, BC = bc });
-                #endregion
+                //    System.Diagnostics.Debug.WriteLine(sql);
+                //};
 
 
-                BillingDetail bl = new BillingDetail
-                {
-                    BillingDetailId = 1,
-                    Note263 = DateTime.Now.ToLocalTime().ToString(),
-                    Number = "number",
-                    Owner = "dog"
-                };
+                //foreach(var ba in db.BillingDetails.Local)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"{ba.BillingDetailId}, {ba.Number}, {ba.Owner}, {ba.Note263}");
+                //}
 
+                //var row =db.BillingDetails.Find(2);
+                //row.Owner = "jeff";
+                ////db.BillingDetails.Load();
 
+                //foreach (var ba in db.BillingDetails.Local)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"{ba.BillingDetailId}, {ba.Number}, {ba.Owner}, {ba.Note263}, {db.Entry(ba).State}");
+                //}
 
-                var originalSetting = db.Configuration.AutoDetectChangesEnabled;
-                db.Configuration.AutoDetectChangesEnabled = false;
+                //foreach(var ba in db.BillingDetails)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"{ba.BillingDetailId}, {ba.Number}, {ba.Owner}, {ba.Note263}, {db.Entry(ba).State}");
+                //}
 
-                bl = db.BillingDetails.Where(w => w.BillingDetailId == 12).FirstOrDefault();
+                //db.SaveChanges();
 
-                return Ok(bl);
+                //foreach (var ba in db.BillingDetails.Local)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"{ba.BillingDetailId}, {ba.Number}, {ba.Owner}, {ba.Note263}, {db.Entry(ba).State}");
+                //}
 
+                //foreach (var ba in db.BillingDetails)
+                //{
+                //    System.Diagnostics.Debug.WriteLine($"{ba.BillingDetailId}, {ba.Number}, {ba.Owner}, {ba.Note263}, {db.Entry(ba).State}");
+                //}
+                
+                var ba = db.BankAccounts.First();
+
+                return Ok();
+                //return Json(ba);
             }
-
         }
+
     }
+
+
 }
